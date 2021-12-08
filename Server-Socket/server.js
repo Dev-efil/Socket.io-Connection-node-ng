@@ -5,4 +5,11 @@ const socket = require('socket.io');
 const server = express();
 const PORT = process.env.PORT || 3000;
 
-server.listen(PORT, () => console.log(`Server started on port : ${PORT}`));
+const app = server.listen(PORT, () => console.log(`Server started on port : ${PORT}`));
+
+// Socket.io setup
+const io = socket(app);
+
+io.on('connection', function(socket) {
+    console.log('Made a Socket connection');
+});
