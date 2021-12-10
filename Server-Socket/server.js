@@ -16,10 +16,19 @@ const app = server.listen(PORT, () => console.log(`Server started on port : ${PO
 // Socket.io setup
 const io = socket(app, {
     cors: {
-      origin: "*"
-    }
+        origin: 'http://localhost:4200'
+    },
 });
 
 io.on('connection', function (socket) {
     console.log(`Made a Socket connection : ${socket.id}`);
+    socket.on('disconnect', () => {
+        console.log('User disconnected');
+    });
+    // Register an event to console the data which coming from Client.
+    socket.on('my message', (msg) => {
+        console.log('Message : '+ msg);
+        // broadcast the event to all connected users
+        io.emit('my broadcast', `server: ${msg}`);
+    });
 });
