@@ -14,4 +14,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.ioConnect.socketConnection();
   }
+  ngOnDestroy() {
+    this.ioConnect.disconnect();
+  }
 }

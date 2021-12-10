@@ -13,5 +13,17 @@ export class SocketioService {
   // Setup a socket connection
   socketConnection() {
     this.socket = io(environment.SOCKET_ENDPOINT);
+    // Emit the event named 'my message' to send this message to server
+    this.socket.emit('my message', 'Hello from client ng');
+
+    this.socket.on('my broadcast', (data: string) => {
+      console.log(data);
+    });
+  }
+
+  disconnect() {
+    if (this.socket) {
+      this.socket.disconnect();
+    }
   }
 }
